@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { db } from "./scripts/firebase";
 import { ref, onValue, remove } from "firebase/database";
+import ChoicesForm from "./components/ChoicesForm";
+import Wheel from "./components/Wheel";
+import ChoiceList from "./components/ChoiceList";
+
+export default function App() {
+	const [category, setCategory] = useState("Films");
+	const [items, setItems] = useState([]);
+
+	// clear la BD
+	const handleClear = () => {
+		remove(ref(db, "ideas"));
+	};
+
 	useEffect(() => {
 		const ideasRef = ref(db, "ideas");
 		const unsubscribe = onValue(ideasRef, (snapshot) => {
