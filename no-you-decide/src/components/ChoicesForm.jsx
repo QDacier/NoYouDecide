@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { db } from "../scripts/firebase";
 import { ref, push } from "firebase/database";
 
-export default function ChoicesForm({ category }) {
+export default function ChoicesForm({ category, partyCode, isSpinning }) {
 	const [newItem, setNewItem] = useState("");
+
+	if (!partyCode) return null;
 
 	const handleAdd = (e) => {
 		e.preventDefault();
-		if (!newItem.trim()) return;
+		if (!newItem.trim() || isSpinning) return;
 
-		// Envoie toujours dans le même nœud "ideas"
-		push(ref(db, "ideas"), {
+		const dbPath = `parties/${partyCode}/ideas`;
+		push(ref(db, dbPath), {
 			text: newItem.trim(),
 		});
 
@@ -22,11 +24,30 @@ export default function ChoicesForm({ category }) {
 			<input
 				type="text"
 				value={newItem}
+				disabled={isSpinning}
 				onChange={(e) => setNewItem(e.target.value)}
-				placeholder={`Ajouter un choix (${category.toLowerCase()})...`}
-				style={{ padding: "8px", width: "65%", marginRight: "5px" }}
+				placeholder={
+					isSpinning
+						? "Attends la fin du tour..."
+						: `Ajouter un choix (${category?.toLowerCase()})...`
+				}
+				style={{
+					padding: "8px",
+					width: "65%",
+					marginRight: "5px",
+					backgroundColor: isSpinning ? "#f0f0f0" : "#fff",
+					cursor: isSpinning ? "not-allowed" : "text",
+				}}
 			/>
-			<button type="submit" style={{ padding: "8px 12px", cursor: "pointer" }}>
+			<button
+				type="submit"
+				disabled={isSpinning}
+				style={{
+					padding: "8px 12px",
+					cursor: isSpinning ? "not-allowed" : "pointer",
+					opacity: isSpinning ? 0.6 : 1,
+				}}
+			>
 				Ajouter
 			</button>
 		</form>

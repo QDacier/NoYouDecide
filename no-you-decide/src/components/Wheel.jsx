@@ -1,35 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
+import { db } from "../scripts/firebase";
+import { ref, set, remove } from "firebase/database";
 
-export default function Wheel({ items }) {
-	const [rotation, setRotation] = useState(0);
-	const [winner, setWinner] = useState(null);
-
+export default function Wheel({
+	items,
+	partyCode,
+	isSpinning,
+	winner,
+	rotationAngle,
+}) {
 	const total = items.length;
 	const sliceAngle = total > 0 ? 360 / total : 0;
-	const colors = [
-		"#FF6B6B",
-		"#4ECDC4",
-		"#FFE66D",
-		"#1A535C",
-		"#FF9F1C",
-		"#9B5DE5",
-		"#F15BB5",
-	];
+	const colors = ["#FF0000", "#000000"];
 
 	const spin = () => {
-		if (total === 0) return;
-		setWinner(null);
+		if (total === 0 || isSpinning) return;
 
 		const randomIndex = Math.floor(Math.random() * total);
-		// 5 tours (1800 deg) + décalage pour aligner la tranche gagnante sous le pointeur du haut
-		const targetAngle =
-			360 * 5 + (360 - randomIndex * sliceAngle - sliceAngle / 2);
-		const newRotation = rotation + targetAngle;
+		const winningSliceCenterAngle = randomIndex * sliceAngle + sliceAngle / 2;
+		const degreesToTop = 270 - winningSliceCenterAngle;
 
-		setRotation(newRotation);
+		const currentModulus = rotationAngle % 360;
+		const extraSpins = 360 * 5;
+		const newRotation =
+			rotationAngle +
+			extraSpins +
+			((degreesToTop - currentModulus + 360) % 360);
+
+		if (partyCode) {
+			set(ref(db, `parties/${partyCode}/isSpinning`), true);
+			remove(ref(db, `parties/${partyCode}/winner`));
+			set(ref(db, `parties/${partyCode}/rotationAngle`), newRotation);
+		}
 
 		setTimeout(() => {
-			setWinner(items[randomIndex].text);
+			const selectedText = items[randomIndex].text;
+
+			if (partyCode) {
+				set(ref(db, `parties/${partyCode}/winner`), selectedText);
+				set(ref(db, `parties/${partyCode}/isSpinning`), false);
+			}
 		}, 4000);
 	};
 
@@ -45,7 +55,6 @@ export default function Wheel({ items }) {
 							margin: "0 auto",
 						}}
 					>
-						{/* Pointeur */}
 						<div
 							style={{
 								position: "absolute",
@@ -61,13 +70,12 @@ export default function Wheel({ items }) {
 							}}
 						/>
 
-						{/* Roue */}
 						<svg
 							viewBox="-100 -100 200 200"
 							style={{
 								width: "100%",
 								height: "100%",
-								transform: `rotate(${rotation}deg)`,
+								transform: `rotate(${rotationAngle}deg)`,
 								transition: "transform 4s cubic-bezier(0.15, 0.99, 0.35, 1)",
 							}}
 						>
@@ -103,6 +111,10 @@ export default function Wheel({ items }) {
 											fontWeight="bold"
 											textAnchor="middle"
 											transform={`rotate(${textAngle})`}
+											style={{
+												textShadow:
+													"1px 1px 3px #000, -1px -1px 3px #000, 0px 0px 5px #000",
+											}}
 										>
 											{item.text.length > 12
 												? item.text.substring(0, 10) + "..."
@@ -116,15 +128,16 @@ export default function Wheel({ items }) {
 
 					<button
 						onClick={spin}
-						disabled={total === 0}
+						disabled={total === 0 || isSpinning}
 						style={{
 							marginTop: "15px",
 							padding: "10px 20px",
 							fontSize: "16px",
-							cursor: "pointer",
+							cursor: isSpinning ? "not-allowed" : "pointer",
+							opacity: isSpinning ? 0.6 : 1,
 						}}
 					>
-						Lancer la roue !
+						{isSpinning ? "La roue tourne..." : "Lancer la roue !"}
 					</button>
 
 					{winner && (
