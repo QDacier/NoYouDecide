@@ -9,11 +9,12 @@ export default function ChoiceList({ items, handleClear }) {
 						onClick={handleClear}
 						style={{
 							padding: "6px 12px",
-							background: "#ff4d4d",
+							background: "#ff0000",
 							color: "#fff",
 							border: "none",
 							borderRadius: "4px",
 							cursor: "pointer",
+							marginBottom: "15px",
 						}}
 					>
 						Tout effacer

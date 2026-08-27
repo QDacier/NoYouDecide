@@ -127,6 +127,7 @@ export default function Wheel({
 					</div>
 
 					<button
+						id="BtnSpin"
 						onClick={spin}
 						disabled={total === 0 || isSpinning}
 						style={{
@@ -142,7 +143,7 @@ export default function Wheel({
 
 					{winner && (
 						<h2 style={{ color: "#2ec4b6", marginTop: "15px" }}>
-							Résultat : {winner} ! 🎉
+							Résultat : {winner} !
 						</h2>
 					)}
 				</div>

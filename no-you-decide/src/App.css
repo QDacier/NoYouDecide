@@ -1,0 +1,158 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: green;
+}
+
+input {
+	color: gold;
+	border: 2px solid gold;
+	background: none;
+}
+
+input::placeholder {
+	color: gold;
+}
+
+#main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+}
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#BtnCreateParty,
+#BtnJoinParty,
+#BtnAjouterChoix,
+#BtnSpin {
+	padding: 8px 16px;
+	background: gold;
+	color: black;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+}
+
+#BtnCreateParty::after,
+#BtnJoinParty::after,
+#BtnAjouterChoix::after,
+#BtnSpin::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 50%;
+	height: 100%;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.4),
+		transparent
+	);
+	transform: skewX(-20deg);
+}
+
+#BtnCreateParty:hover::after,
+#BtnJoinParty:hover::after,
+#BtnAjouterChoix:hover::after,
+#BtnSpin:hover::after {
+	animation: shine 0.8s ease-in-out;
+}
+
+@keyframes shine {
+	0% {
+		left: -100%;
+	}
+	100% {
+		left: 150%;
+	}
+}
+
+#Party {
+	border: 1px solid gold;
+	padding: 15px;
+	border-radius: 8px;
+	margin-bottom: 20px;
+	color: gold;
+}
+
+#PartyController,
+#MenuParty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#titre,
+label {
+	color: gold;
+}
+
+footer {
+	width: 100%;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+	color: gold;
+	text-align: center;
+	font-size: 0.9em;
+	box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	z-index: 50;
+	margin-top: auto;
+}
+
+footer p {
+	margin: 0;
+	line-height: 1.5;
+}
+
+footer a {
+	color: #3498db;
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+footer a:hover {
+	color: #ffffff;
+}
+
+@media (min-width: 1601px) {
+	footer {
+		padding: 20px;
+	}
+}
+
+@media (min-width: 601px) and (max-width: 1600px) {
+	footer {
+		padding: 15px;
+	}
+}
+
+@media (max-width: 600px) {
+	footer {
+		padding: 10px;
+		font-size: 0.75em;
+	}
+}

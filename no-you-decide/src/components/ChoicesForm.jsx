@@ -27,21 +27,23 @@ export default function ChoicesForm({ category, partyCode, isSpinning }) {
 				disabled={isSpinning}
 				onChange={(e) => setNewItem(e.target.value)}
 				placeholder={
-					isSpinning
+					"Ajouter un choix"
+					/*isSpinning
 						? "Attends la fin du tour..."
 						: `Ajouter un choix (${category?.toLowerCase()})...`
+				*/
 				}
 				style={{
 					padding: "8px",
 					width: "65%",
 					marginRight: "5px",
-					backgroundColor: isSpinning ? "#f0f0f0" : "#fff",
 					cursor: isSpinning ? "not-allowed" : "text",
 				}}
 			/>
 			<button
 				type="submit"
 				disabled={isSpinning}
+				id="BtnAjouterChoix"
 				style={{
 					padding: "8px 12px",
 					cursor: isSpinning ? "not-allowed" : "pointer",

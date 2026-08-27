@@ -44,7 +44,7 @@ export default function App() {
 		}
 	}, []);
 
-	// Écoute des choix d'idées avec la récupération de l'imageUrl
+	// Image de roue
 	useEffect(() => {
 		const ideasRef = ref(db, dbPath);
 		const unsubscribe = onValue(ideasRef, (snapshot) => {
@@ -64,7 +64,7 @@ export default function App() {
 		return () => unsubscribe();
 	}, [dbPath]);
 
-	// Écoute de l'état du Spin, du Winner ET de l'Angle de Rotation en temps réel
+	// Etat du Spin, gagnant et rotation
 	useEffect(() => {
 		if (!partyCode) {
 			setIsSpinning(false);
@@ -97,7 +97,7 @@ export default function App() {
 		};
 	}, [partyCode]);
 
-	// Gestion des utilisateurs et suppression totale du salon s'il devient vide
+	// Gestion user et du party
 	useEffect(() => {
 		if (!partyCode || !username) {
 			setUsers([]);
@@ -146,20 +146,12 @@ export default function App() {
 	};
 
 	return (
-		<div
-			style={{
-				fontFamily: "sans-serif",
-				textAlign: "center",
-				padding: "20px",
-				maxWidth: "500px",
-				margin: "0 auto",
-			}}
-		>
-			<h1>NoYouDecide 🎡</h1>
+		<div id="main">
+			<h1 id="titre">NoYouDecide</h1>
 
-			{partyCode && (
+			{/*partyCode && (
 				<div style={{ marginBottom: "20px" }}>
-					<label
+			<label
 						htmlFor="cat-select"
 						style={{ marginRight: "10px", fontWeight: "bold" }}
 					>
@@ -182,7 +174,7 @@ export default function App() {
 						<option value="Autre">Autres</option>
 					</select>
 				</div>
-			)}
+			)*/}
 
 			<ChoicesForm
 				category={category}
@@ -205,6 +197,13 @@ export default function App() {
 				onJoinParty={handleJoinParty}
 				onLeaveParty={handleLeaveParty}
 			/>
+
+			<footer>
+				<p>
+					NoYouDecide V1.0 / Go see my other stuff on{" "}
+					<a href="https://github.com/QDacier">GitHub</a>
+				</p>
+			</footer>
 		</div>
 	);
 }

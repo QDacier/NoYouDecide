@@ -41,16 +41,9 @@ export default function PartyShare({
 	};
 
 	return (
-		<div
-			style={{
-				border: "1px solid #ccc",
-				padding: "15px",
-				borderRadius: "8px",
-				marginBottom: "20px",
-			}}
-		>
+		<div id="Party">
 			{currentParty ? (
-				<div>
+				<div id="PartyController">
 					<h3>
 						Salon actuel :{" "}
 						<span style={{ color: "#2ec4b6" }}>{currentParty}</span>
@@ -89,9 +82,6 @@ export default function PartyShare({
 					</div>
 
 					<div style={{ margin: "15px 0" }}>
-						<p style={{ fontSize: "13px", color: "#666", marginBottom: "5px" }}>
-							Fais scanner ce code à tes amis :
-						</p>
 						<div
 							style={{
 								background: "#fff",
@@ -102,14 +92,13 @@ export default function PartyShare({
 						>
 							<QRCodeSVG value={partyUrl} size={140} />
 						</div>
-						<p style={{ fontSize: "11px", color: "#888" }}>{partyUrl}</p>
 					</div>
 
 					<button
 						onClick={onLeaveParty}
 						style={{
 							padding: "8px 16px",
-							background: "#ff4d4d",
+							background: "#ff0000",
 							color: "#fff",
 							border: "none",
 							borderRadius: "4px",
@@ -120,54 +109,35 @@ export default function PartyShare({
 					</button>
 				</div>
 			) : (
-				<div>
-					<h3>Rejoindre ou créer un Party 🎉</h3>
-
-					<div style={{ marginBottom: "12px" }}>
-						<input
-							type="text"
-							value={nameInput}
-							onChange={(e) => setNameInput(e.target.value)}
-							placeholder="Ton nom..."
-							style={{
-								padding: "8px",
-								width: "80%",
-								borderRadius: "4px",
-								border: "1px solid #ccc",
-							}}
-						/>
-					</div>
-
-					<button
-						onClick={handleCreate}
+				<div id="MenuParty">
+					<h3>Rejoindre ou créer un Party</h3>
+					<input
+						type="text"
+						value={nameInput}
+						onChange={(e) => setNameInput(e.target.value)}
+						placeholder="Ton surnom"
 						style={{
-							padding: "8px 16px",
-							background: "#2ec4b6",
-							color: "#fff",
-							border: "none",
-							borderRadius: "4px",
-							cursor: "pointer",
-							marginBottom: "15px",
+							padding: "8px",
+							width: "80%",
 						}}
-					>
+					/>
+
+					<button onClick={handleCreate} id="BtnCreateParty">
 						Créer un Party
 					</button>
 
 					<form
 						onSubmit={handleJoin}
-						style={{ borderTop: "1px solid #eee", paddingTop: "12px" }}
+						style={{ borderTop: "1px solid gold", paddingTop: "12px" }}
 					>
 						<input
 							type="text"
 							value={codeInput}
 							onChange={(e) => setCodeInput(e.target.value)}
-							placeholder="Code de party..."
+							placeholder="Code"
 							style={{ padding: "6px", width: "120px", marginRight: "5px" }}
 						/>
-						<button
-							type="submit"
-							style={{ padding: "6px 12px", cursor: "pointer" }}
-						>
+						<button type="submit" id="BtnJoinParty">
 							Rejoindre
 						</button>
 					</form>
