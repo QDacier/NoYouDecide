@@ -145,50 +145,29 @@ export default function App() {
 		window.history.pushState({}, "", window.location.pathname);
 	};
 
+	const canShowGameContent = !partyCode || (partyCode && username);
+
 	return (
 		<div id="main">
 			<h1 id="titre">NoYouDecide</h1>
 
-			{/*partyCode && (
-				<div style={{ marginBottom: "20px" }}>
-			<label
-						htmlFor="cat-select"
-						style={{ marginRight: "10px", fontWeight: "bold" }}
-					>
-						Mode :
-					</label>
-					<select
-						id="cat-select"
-						value={category}
-						disabled={isSpinning}
-						onChange={(e) => {
-							setCategory(e.target.value);
-							handleClear();
-						}}
-						style={{ padding: "8px", fontSize: "16px", borderRadius: "4px" }}
-					>
-						<option value="Films">Films / Séries</option>
-						<option value="Restos">Restos</option>
-						<option value="Repas">Repas</option>
-						<option value="Activités">Activités</option>
-						<option value="Autre">Autres</option>
-					</select>
-				</div>
-			)*/}
-
-			<ChoicesForm
-				category={category}
-				partyCode={partyCode}
-				isSpinning={isSpinning}
-			/>
-			<Wheel
-				items={items}
-				partyCode={partyCode}
-				isSpinning={isSpinning}
-				winner={winner}
-				rotationAngle={rotationAngle}
-			/>
-			<ChoiceList items={items} handleClear={handleClear} />
+			{canShowGameContent && (
+				<>
+					<ChoicesForm
+						category={category}
+						partyCode={partyCode}
+						isSpinning={isSpinning}
+					/>
+					<Wheel
+						items={items}
+						partyCode={partyCode}
+						isSpinning={isSpinning}
+						winner={winner}
+						rotationAngle={rotationAngle}
+					/>
+					<ChoiceList items={items} handleClear={handleClear} />
+				</>
+			)}
 
 			<PartyShare
 				currentParty={partyCode}

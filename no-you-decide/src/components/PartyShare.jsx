@@ -19,6 +19,16 @@ export default function PartyShare({
 		}
 	}, [currentParty]);
 
+	// Nom pour code scan QR code
+	const handleJoinByQR = (e) => {
+		e.preventDefault();
+		if (!nameInput.trim()) {
+			alert("Veuillez entrer votre nom pour rejoindre la party !");
+			return;
+		}
+		onJoinParty(currentParty, nameInput.trim());
+	};
+
 	const handleCreate = () => {
 		if (!nameInput.trim()) {
 			alert("Veuillez entrer votre nom avant de créer un party !");
@@ -42,7 +52,31 @@ export default function PartyShare({
 
 	return (
 		<div id="Party">
-			{currentParty ? (
+			{currentParty && !username ? (
+				<div id="MenuParty">
+					<h3>
+						Rejoindre le party :{" "}
+						<span style={{ color: "#2ec4b6" }}>{currentParty}</span>
+					</h3>
+					<form onSubmit={handleJoinByQR}>
+						<input
+							type="text"
+							value={nameInput}
+							onChange={(e) => setNameInput(e.target.value)}
+							placeholder="Entre ton surnom"
+							style={{
+								padding: "8px",
+								width: "80%",
+								marginBottom: "10px",
+							}}
+							autoFocus
+						/>
+						<button type="submit" id="BtnJoinParty">
+							Entrer dans le party
+						</button>
+					</form>
+				</div>
+			) : currentParty && username ? (
 				<div id="PartyController">
 					<h3>
 						Salon actuel :{" "}
