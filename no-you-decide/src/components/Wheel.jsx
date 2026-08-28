@@ -138,7 +138,7 @@ export default function Wheel({
 							opacity: isSpinning ? 0.6 : 1,
 						}}
 					>
-						{isSpinning ? "La roue tourne..." : "Lancer la roue !"}
+						{isSpinning ? "La roue tourne..." : "Tourner la roue"}
 					</button>
 
 					{winner && (

@@ -26,13 +26,7 @@ export default function ChoicesForm({ category, partyCode, isSpinning }) {
 				value={newItem}
 				disabled={isSpinning}
 				onChange={(e) => setNewItem(e.target.value)}
-				placeholder={
-					"Ajouter un choix"
-					/*isSpinning
-						? "Attends la fin du tour..."
-						: `Ajouter un choix (${category?.toLowerCase()})...`
-				*/
-				}
+				placeholder={"Ajouter un choix"}
 				style={{
 					padding: "8px",
 					width: "65%",

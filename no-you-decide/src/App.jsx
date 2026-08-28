@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { db } from "./scripts/firebase";
 import {
 	ref,
@@ -12,12 +12,13 @@ import PartyShare from "./components/PartyShare";
 import ChoicesForm from "./components/ChoicesForm";
 import Wheel from "./components/Wheel";
 import ChoiceList from "./components/ChoiceList";
+import Header from "./components/Header";
 
 export default function App() {
 	const [partyCode, setPartyCode] = useState("");
 	const [username, setUsername] = useState("");
 	const [users, setUsers] = useState([]);
-	const [category, setCategory] = useState("Films");
+	const [category, setCategory] = useState("Films/séries");
 	const [items, setItems] = useState([]);
 	const [isSpinning, setIsSpinning] = useState(false);
 	const [winner, setWinner] = useState(null);
@@ -148,41 +149,47 @@ export default function App() {
 	const canShowGameContent = !partyCode || (partyCode && username);
 
 	return (
-		<div id="main">
-			<h1 id="titre">NoYouDecide</h1>
-
-			{canShowGameContent && (
-				<>
-					<ChoicesForm
-						category={category}
-						partyCode={partyCode}
-						isSpinning={isSpinning}
-					/>
-					<Wheel
-						items={items}
-						partyCode={partyCode}
-						isSpinning={isSpinning}
-						winner={winner}
-						rotationAngle={rotationAngle}
-					/>
-					<ChoiceList items={items} handleClear={handleClear} />
-				</>
-			)}
-
-			<PartyShare
-				currentParty={partyCode}
-				username={username}
-				users={users}
-				onJoinParty={handleJoinParty}
+		<>
+			<Header
+				category={category}
+				setCategory={setCategory}
+				partyCode={partyCode}
 				onLeaveParty={handleLeaveParty}
 			/>
+			<div id="main">
+				{canShowGameContent && (
+					<>
+						<ChoicesForm
+							category={category}
+							partyCode={partyCode}
+							isSpinning={isSpinning}
+						/>
+						<Wheel
+							items={items}
+							partyCode={partyCode}
+							isSpinning={isSpinning}
+							winner={winner}
+							rotationAngle={rotationAngle}
+						/>
+						<ChoiceList items={items} handleClear={handleClear} />
+					</>
+				)}
 
-			<footer>
-				<p>
-					NoYouDecide V1.0 / Go see my other stuff on{" "}
-					<a href="https://github.com/QDacier">GitHub</a>
-				</p>
-			</footer>
-		</div>
+				<PartyShare
+					currentParty={partyCode}
+					username={username}
+					users={users}
+					onJoinParty={handleJoinParty}
+					onLeaveParty={handleLeaveParty}
+				/>
+
+				<footer>
+					<p>
+						NoYouDecide V2.0 / Go see my other stuff on{" "}
+						<a href="https://github.com/QDacier">GitHub</a>
+					</p>
+				</footer>
+			</div>
+		</>
 	);
 }

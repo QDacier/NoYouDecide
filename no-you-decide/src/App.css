@@ -4,38 +4,201 @@
 	box-sizing: border-box;
 }
 
-html,
-body,
-#root {
+html {
 	height: 100%;
-	margin: 0;
-	padding: 0;
 }
 
 body {
-	background: green;
+	min-height: 100vh;
+	margin: 0;
+	padding: 0;
+	background: var(--bg-gradient);
+	background-attachment: fixed;
+	background-size: cover;
+	color: var(--text-color);
+	transition:
+		background 0.3s ease,
+		color 0.3s ease;
 }
 
-input {
-	color: gold;
-	border: 2px solid gold;
-	background: none;
+#root {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
-input::placeholder {
-	color: gold;
+:root {
+	--bg-gradient: radial-gradient(
+		ellipse at top,
+		#1b1b2f 0%,
+		#080811 60%,
+		#000000 100%
+	);
+	--text-color: #ffffff;
+	--primary-color: #e50914;
+	--primary-glow: rgba(229, 9, 20, 0.5);
+	--card-bg: rgba(20, 20, 30, 0.85);
+	--border-color: #e50914;
+	--btn-bg: #e50914;
+	--btn-text: #ffffff;
+}
+/*====================== Themes ======================*/
+/*----------- Films -----------*/
+body.theme-films {
+	--bg-gradient: radial-gradient(
+		ellipse at top,
+		#1b1b2f 0%,
+		#080811 60%,
+		#000000 100%
+	);
+	--text-color: #ffffff;
+	--primary-color: #e50914;
+	--primary-glow: rgba(229, 9, 20, 0.6);
+	--card-bg: rgba(20, 20, 30, 0.85);
+	--border-color: #e50914;
+	--btn-bg: #e50914;
+	--btn-text: #ffffff;
+}
+/*----------- Resto -----------*/
+body.theme-restos {
+	--bg-gradient: radial-gradient(
+		circle at center,
+		#231917 0%,
+		#120c0b 70%,
+		#050303 100%
+	);
+	--text-color: #f7ebdb;
+	--primary-color: #d4af37;
+	--primary-glow: rgba(212, 175, 55, 0.5);
+	--card-bg: #1a1211;
+	--border-color: #d4af37;
+	--btn-bg: #d4af37;
+	--btn-text: #1a1211;
+}
+/*----------- Repas -----------*/
+body.theme-repas {
+	--bg-gradient: radial-gradient(
+		circle at center,
+		#3d2314 0%,
+		#231209 70%,
+		#0d0603 100%
+	);
+	--text-color: #fff3e0;
+	--primary-color: #ff9800;
+	--primary-glow: rgba(255, 152, 0, 0.4);
+	--card-bg: #2a170c;
+	--border-color: #8d4f26;
+	--btn-bg: #8d4f26;
+	--btn-text: #fff3e0;
+}
+/*--------- Activites ---------*/
+body.theme-activites {
+	--bg-gradient: linear-gradient(180deg, #3a7bd5 0%, #3a6073 60%, #2c3e50 100%);
+	--text-color: #ffffff;
+	--primary-color: #fff176;
+	--primary-glow: rgba(255, 241, 118, 0.6);
+	--card-bg: rgba(15, 32, 47, 0.85);
+	--border-color: #4fc3f7;
+	--btn-bg: #4fc3f7;
+	--btn-text: #0f202f;
+}
+/*----------- Autre -----------*/
+body.theme-autre {
+	--bg-gradient: radial-gradient(
+		circle at center,
+		#1a3c27 0%,
+		#08190e 70%,
+		#000000 100%
+	);
+	--text-color: #f4d068;
+	--primary-color: #ffffff;
+	--primary-glow: rgba(255, 215, 0, 0.8);
+	--card-bg: #0d2216;
+	--border-color: #bf953f;
+	--btn-bg: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);
+	--btn-text: #000000;
 }
 
 #main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	min-height: 100vh;
+	justify-content: center;
+	flex: 1;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 15px;
 }
+
+#Party,
+#MenuParty,
+#PartyController {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	width: 100%;
+	max-width: 420px;
+	margin: 0 auto 20px auto;
+	padding: 20px;
+	border-radius: 8px;
+	color: var(--text-color);
+}
+
+#Party {
+	border: 1px solid var(--border-color);
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+	background-color: var(--card-bg);
+}
+
+#Party img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	margin: 10px auto;
+}
+
 form {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin: 0 auto;
+}
+
+input {
+	color: var(--text-color);
+	border: 2px solid var(--border-color);
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+	max-width: 300px;
+	text-align: center;
+	display: block;
+}
+
+input::placeholder {
+	color: var(--text-color);
+	opacity: 0.6;
+}
+
+#titre,
+label,
+h1,
+h2,
+h3 {
+	color: var(--primary-color);
+	text-shadow: 0 0 10px var(--primary-glow);
+	text-align: center;
+}
+
+hr {
+	width: 80%;
+	margin: 15px auto;
+	border: 0;
+	border-top: 1px solid var(--border-color);
+	opacity: 0.5;
 }
 
 #BtnCreateParty,
@@ -43,16 +206,19 @@ form {
 #BtnAjouterChoix,
 #BtnSpin {
 	padding: 8px 16px;
-	background: gold;
-	color: black;
+	background: var(--btn-bg);
+	color: var(--btn-text);
 	border: none;
 	border-radius: 4px;
+	font-weight: bold;
 	cursor: pointer;
-	margin-bottom: 15px;
-	margin-top: 15px;
+	margin: 12px auto;
+	display: block;
 	position: relative;
 	overflow: hidden;
-	display: inline-block;
+	transition:
+		background 0.3s ease,
+		color 0.3s ease;
 }
 
 #BtnCreateParty::after,
@@ -90,35 +256,81 @@ form {
 	}
 }
 
-#Party {
-	border: 1px solid gold;
-	padding: 15px;
-	border-radius: 8px;
-	margin-bottom: 20px;
-	color: gold;
-}
-
-#PartyController,
-#MenuParty {
+.app-header {
 	display: flex;
-	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
 	align-items: center;
+	padding: 12px 20px;
+	background-color: rgba(10, 10, 10, 0.85);
+	border-bottom: 1px solid var(--border-color);
+	backdrop-filter: blur(10px);
+	width: 100%;
+	gap: 15px;
+	margin-bottom: 1.5em;
 }
 
-#titre,
-label {
-	color: gold;
+.header-logo h2 {
+	margin: 0;
+	font-family: "Montserrat", sans-serif;
+	color: var(--primary-color);
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-size: 1.2rem;
+}
+
+.header-nav {
+	display: flex;
+	gap: 8px;
+	overflow-x: auto;
+	max-width: 100%;
+	padding-bottom: 4px;
+}
+
+.nav-link {
+	background: none;
+	border: none;
+	color: var(--text-color);
+	opacity: 0.7;
+	font-size: 0.85rem;
+	font-weight: 500;
+	cursor: pointer;
+	padding: 6px 10px;
+	white-space: nowrap;
+	transition: all 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+	opacity: 1;
+	color: var(--primary-color);
+	border-bottom: 2px solid var(--primary-color);
+}
+
+.btn-leave {
+	background: transparent;
+	border: 1px solid var(--primary-color);
+	color: var(--primary-color);
+	padding: 6px 14px;
+	border-radius: 20px;
+	font-weight: bold;
+	cursor: pointer;
+	white-space: nowrap;
+	transition: all 0.2s;
+}
+
+.btn-leave:hover {
+	background: var(--primary-color);
+	color: #000000;
 }
 
 footer {
 	width: 100%;
-	background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
-	color: gold;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+	color: var(--text-color);
 	text-align: center;
 	font-size: 0.9em;
-	box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
 	backdrop-filter: blur(5px);
-	-webkit-backdrop-filter: blur(5px);
 	z-index: 50;
 	margin-top: auto;
 }
@@ -129,7 +341,7 @@ footer p {
 }
 
 footer a {
-	color: #3498db;
+	color: var(--primary-color);
 	text-decoration: none;
 	transition: color 0.3s ease;
 }
@@ -143,14 +355,24 @@ footer a:hover {
 		padding: 20px;
 	}
 }
-
 @media (min-width: 601px) and (max-width: 1600px) {
 	footer {
 		padding: 15px;
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+	.app-header {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.header-nav {
+		width: 100%;
+		justify-content: center;
+	}
+
 	footer {
 		padding: 10px;
 		font-size: 0.75em;

@@ -127,20 +127,6 @@ export default function PartyShare({
 							<QRCodeSVG value={partyUrl} size={140} />
 						</div>
 					</div>
-
-					<button
-						onClick={onLeaveParty}
-						style={{
-							padding: "8px 16px",
-							background: "#ff0000",
-							color: "#fff",
-							border: "none",
-							borderRadius: "4px",
-							cursor: "pointer",
-						}}
-					>
-						Quitter le party
-					</button>
 				</div>
 			) : (
 				<div id="MenuParty">
@@ -162,7 +148,10 @@ export default function PartyShare({
 
 					<form
 						onSubmit={handleJoin}
-						style={{ borderTop: "1px solid gold", paddingTop: "12px" }}
+						style={{
+							borderTop: "1px solid var(--border-color)",
+							paddingTop: "12px",
+						}}
 					>
 						<input
 							type="text"
